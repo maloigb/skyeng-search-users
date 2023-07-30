@@ -1,21 +1,33 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import usersService from '../../API/services/usersService';
 
-function UserCard({ imageurl, login }) {
+function UserCard({ imageUrl, login, reposurl }) {
+  const [showInfoUser, setShowInfoUser] = useState(false);
+  const [repos, setRepos] = useState([]);
+  // const getRepos = async () => {
+  //   const arrayRepos = await usersService.getRepos(reposurl);
+  //   setRepos(arrayRepos);
+  // };
+  // useEffect(() => {
+  //   getRepos();
+  // }, []);
   return (
     <div className="user-card">
       <Card style={{ width: '18rem', margin: '15px' }}>
-        <Card.Img variant="top" src={imageurl} />
+        <Card.Img variant="top" src={imageUrl} />
         <Card.Body>
-          <Card.Title>{login}</Card.Title>
+          <Card.Title><a style={{ color: 'rgb(92,99,106)' }} target="blank" href={`https://github.com/${login}`} className="btnstretched-link">{login}</a></Card.Title>
+          {showInfoUser
+          && (
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the cards content.
+            {`Количество репозиториев: ${repos.length}`}
           </Card.Text>
-          <Button variant="primary">Информация о пользователе</Button>
+          )}
+          <Button onClick={() => setShowInfoUser(!showInfoUser)} variant="secondary">{showInfoUser ? 'Скрыть информацию' : 'Показать информацию'}</Button>
         </Card.Body>
       </Card>
     </div>
