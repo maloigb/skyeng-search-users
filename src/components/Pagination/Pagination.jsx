@@ -1,24 +1,32 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable no-plusplus */
-/* eslint-disable react/react-in-jsx-scope */
+import { useMemo } from 'react';
 import PaginationBootstrap from 'react-bootstrap/Pagination';
+import './Pagination.css';
 
 function Pagination({
   users, pageSize, page, setPage,
 }) {
-  const items = [];
-  // eslint-disable-next-line no-unsafe-optional-chaining
-  for (let number = 1; number <= users?.length / pageSize; number++) {
-    items.push(
-      // eslint-disable-next-line max-len
-      <PaginationBootstrap.Item key={number} active={number === page} onClick={() => setPage(number)}>
-        {number}
-      </PaginationBootstrap.Item>,
-    );
-  }
+  const pagess = useMemo(
+    () => {
+      const pages = [];
+      for (let number = 1; number <= users.length / pageSize; number++) {
+        pages.push(
+          <PaginationBootstrap.Item
+            key={number}
+            active={number === page}
+            onClick={() => setPage(number)}
+          >
+            {number}
+          </PaginationBootstrap.Item>,
+        );
+      }
+      return pages;
+    },
+    [users, page],
+  );
   return (
     <div className="container">
-      <PaginationBootstrap>{items}</PaginationBootstrap>
+      <PaginationBootstrap>{pagess}</PaginationBootstrap>
     </div>
   );
 }

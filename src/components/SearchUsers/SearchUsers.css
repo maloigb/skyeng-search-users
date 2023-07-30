@@ -1,7 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    color: gray;
+    color: rgb(92,99,106);
+    font-family:'Times New Roman', Times, serif;
 }
 
 .search-control {
@@ -13,11 +14,27 @@
 }
 
 .search-control_input {
-    width: 50%;
+    width: 100%;
     margin-right: 5px;
     background: unset
 }
 
 .search-control_input:focus {
     background: unset
+    
+}
+
+.search-control-sub {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    align-items: flex-start;
+}
+
+
+.search-control_button {
+    display: flex;
+    justify-content: end;
+    align-self: flex-start;
+    margin-left: 10px;
 }
