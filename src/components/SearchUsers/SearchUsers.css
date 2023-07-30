@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    color: gray;
+}
+
+.search-control {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-control_input {
+    width: 50%;
+    margin-right: 5px;
+    background: unset
+}
+
+.search-control_input:focus {
+    background: unset
+}
