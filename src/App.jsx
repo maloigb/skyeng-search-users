@@ -1,10 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
 import './App.css';
+import SearchUsers from './components/SearchUsers/SearchUsers';
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello</h1>
+      <SearchUsers />
     </div>
   );
 }
