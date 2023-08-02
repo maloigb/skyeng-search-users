@@ -1,20 +1,13 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import usersService from '../../API/services/usersService';
 
-function UserCard({ imageUrl, login, reposurl }) {
+function UserCard({
+  imageUrl, login, repos,
+}) {
   const [showInfoUser, setShowInfoUser] = useState(false);
-  const [repos, setRepos] = useState([]);
-  // const getRepos = async () => {
-  //   const arrayRepos = await usersService.getRepos(reposurl);
-  //   setRepos(arrayRepos);
-  // };
-  // useEffect(() => {
-  //   getRepos();
-  // }, []);
   return (
     <div className="user-card">
       <Card style={{ width: '18rem', margin: '15px' }}>
@@ -24,7 +17,7 @@ function UserCard({ imageUrl, login, reposurl }) {
           {showInfoUser
           && (
           <Card.Text>
-            {`Количество репозиториев: ${repos.length}`}
+            {`Количество репозиториев: ${repos?.length}`}
           </Card.Text>
           )}
           <Button onClick={() => setShowInfoUser(!showInfoUser)} variant="secondary">{showInfoUser ? 'Скрыть информацию' : 'Показать информацию'}</Button>

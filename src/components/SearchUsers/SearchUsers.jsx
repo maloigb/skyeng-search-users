@@ -5,6 +5,8 @@ import Users from '../Users/Users';
 import usePagination from '../../hooks/usePagination';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SearchUsers.css';
+import Dropdown from '../Dropdown/Dropdown';
+import Loader from '../Loader/Loader';
 
 const PAGE_SIZE = 8;
 function SearchUsers() {
@@ -12,18 +14,22 @@ function SearchUsers() {
   const [searchUserValue, setsearchUserValue] = useState('');
   const [showError, setShowError] = useState(false);
   const [showNoUsers, setShowNoUsers] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
   const handleSearch = async () => {
     try {
+      setShowLoader(true);
       const response = await usersService.getUsers(searchUserValue);
-      setUsers([...response.items]);
+      setUsers([...response]);
       setShowError(false);
-      console.log(response);
-      if (response.items.length === 0) {
+      if (response.length === 0) {
         setShowNoUsers(true);
       }
     } catch (error) {
+      console.log(error);
       setShowError(true);
       setUsers([]);
+    } finally {
+      setShowLoader(false);
     }
   };
   const {
@@ -36,7 +42,7 @@ function SearchUsers() {
       handleSearch();
     }
   };
-  console.log(users);
+  console.log(paginatedData);
   return (
     <div className="container">
       <div className="container-search">
@@ -81,8 +87,10 @@ function SearchUsers() {
             Пользователей с таким именем не найдено.
           </div>
         )}
-      <Users users={paginatedData} />
+      {!!paginatedData.length && <Dropdown users={users} setUsers={setUsers} />}
+      <Users users={paginatedData} setUsers={setUsers} />
       <Pagination users={users} pageSize={PAGE_SIZE} page={page} setPage={setPage} />
+      {showLoader && <Loader />}
     </div>
   );
 }
