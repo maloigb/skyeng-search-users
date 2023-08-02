@@ -2,7 +2,7 @@ import React from 'react';
 import UserCard from '../UserCard.jsx/UserCard';
 import './Users.css';
 
-function Users({ users = [] }) {
+function Users({ users = [], setUsers }) {
   return (
     <div className="container-cards">
       {users?.map((user) => (
@@ -10,7 +10,7 @@ function Users({ users = [] }) {
           key={user.id}
           imageUrl={user.avatar_url}
           login={user.login}
-          reposurl={user.repos_url}
+          repos={user.repos}
         />
       ))}
     </div>
